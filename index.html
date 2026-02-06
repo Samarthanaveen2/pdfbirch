@@ -17,16 +17,37 @@
     <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XXXX');</script>
 </head>
 <body class="bg-gray-50 font-sans text-black min-h-screen antialiased"> <!-- Light grey bg, system sans-serif -->
-    <div class="max-w-2xl mx-auto p-8"> <!-- Wider for Apple-like space -->
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold mb-4">PdfBirch</h1> <!-- Black, bold, simple -->
-            <p class="text-lg text-gray-700">Generate instant 10-page professional reports on any topic. Free for students.</p> <!-- Grey text, clear description -->
+    <header class="bg-white border-b border-gray-200"> <!-- Simple header nav -->
+        <div class="max-w-2xl mx-auto p-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">PdfBirch</h1>
+            <nav class="space-x-6 text-base">
+                <a href="#" class="text-gray-700 hover:text-black">Home</a>
+                <a href="#" class="text-gray-700 hover:text-black">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-2xl mx-auto p-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">Professional Reports, Instantly</h2> <!-- Larger intro heading -->
+            <p class="text-lg text-gray-700 mb-8">Generate 10-page AI reports on any topic. Free for students.</p>
         </div>
 
-        <div class="bg-white rounded-lg p-8 mb-8"> <!-- White card, subtle round -->
-            <label class="block text-lg font-medium mb-4 text-gray-900">Choose a topic:</label> <!-- Medium grey label -->
-            <select id="topicSelect" class="w-full p-4 border border-gray-300 rounded-md text-base focus:outline-none focus:border-black mb-4"> <!-- Clean border, black focus -->
-                <option value="Climate Change">Climate Change (10 pages)</option>
+        <section class="mb-16"> <!-- How It Works section -->
+            <h3 class="text-2xl font-medium mb-6 text-gray-900">How It Works</h3>
+            <ol class="space-y-4 text-base text-gray-700">
+                <li class="flex"><span class="font-medium mr-2">1.</span> Choose or search a topic.</li>
+                <li class="flex"><span class="font-medium mr-2">2.</span> Click Generate or Surprise Me.</li>
+                <li class="flex"><span class="font-medium mr-2">3.</span> Preview and download your report.</li>
+            </ol>
+        </section>
+
+        <div class="bg-white rounded-lg p-8 mb-8"> <!-- Generator card -->
+            <label class="block text-lg font-medium mb-4 text-gray-900">Choose or search a topic:</label>
+            <input id="customTopic" type="text" placeholder="Enter custom topic (optional)" class="w-full p-4 border border-gray-300 rounded-md text-base focus:outline-none focus:border-black mb-4"> <!-- New search input -->
+            <select id="topicSelect" class="w-full p-4 border border-gray-300 rounded-md text-base focus:outline-none focus:border-black mb-4">
+                <option value="">Select from list (optional)</option>
+                <option value="Climate Change">Climate Change</option>
                 <option value="Artificial Intelligence">Artificial Intelligence</option>
                 <option value="Machine Learning">Machine Learning</option>
                 <option value="Blockchain">Blockchain Technology</option>
@@ -37,111 +58,116 @@
                 <option value="Indian History">Indian History</option>
                 <option value="Ancient Rome">Ancient Rome</option>
             </select>
-            <div class="flex gap-4"> <!-- Buttons side-by-side -->
-                <button onclick="generatePDF()" class="flex-1 bg-black text-white font-medium py-4 px-6 rounded-md hover:bg-gray-800 transition">Generate PDF</button> <!-- Black button, white text, subtle hover -->
-                <button onclick="surpriseMe()" class="flex-1 bg-white text-black font-medium py-4 px-6 border border-gray-300 rounded-md hover:bg-gray-100 transition">Surprise Me</button> <!-- Outline button for randomize -->
+            <div class="flex gap-4">
+                <button onclick="generatePDF()" class="flex-1 bg-black text-white font-medium py-4 px-6 rounded-md hover:bg-gray-800 transition">Generate PDF</button>
+                <button onclick="surpriseMe()" class="flex-1 bg-white text-black font-medium py-4 px-6 border border-gray-300 rounded-md hover:bg-gray-100 transition">Surprise Me</button>
             </div>
         </div>
 
         <div id="progress" class="hidden bg-white rounded-lg p-8 text-center mb-8">
-            <div class="w-12 h-12 border-4 border-gray-200 border-t-black rounded-full animate-spin mx-auto mb-4"></div> <!-- Grey/black spinner -->
+            <div class="w-12 h-12 border-4 border-gray-200 border-t-black rounded-full animate-spin mx-auto mb-4"></div>
             <p class="text-lg font-medium text-gray-900">Creating your report...</p>
             <p class="text-base text-gray-500 mt-2">~5 seconds</p>
         </div>
 
         <div id="result" class="hidden">
             <div class="bg-white rounded-lg p-8 mb-8">
-                <h2 id="pdfTitle" class="text-2xl font-medium text-gray-900 mb-4"></h2> <!-- Grey title -->
-                <iframe id="pdfPreview" class="w-full h-[300px] sm:h-[400px] md:h-96 border border-gray-300 rounded-md mb-4"></iframe> <!-- Light border -->
+                <h2 id="pdfTitle" class="text-2xl font-medium text-gray-900 mb-4"></h2>
+                <iframe id="pdfPreview" class="w-full h-[300px] sm:h-[400px] md:h-96 border border-gray-300 rounded-md mb-4"></iframe>
                 <a id="downloadBtn" class="block w-full bg-black text-white font-medium py-4 px-6 rounded-md text-center hover:bg-gray-800 transition mb-4">
                     Download PDF (10 Pages)
                 </a>
                 <div class="flex justify-center gap-4">
-                    <a href="#" id="shareWhatsApp" class="bg-gray-100 text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200">Share on WhatsApp</a> <!-- Grey buttons -->
+                    <a href="#" id="shareWhatsApp" class="bg-gray-100 text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200">Share on WhatsApp</a>
                     <a href="#" id="shareReddit" class="bg-gray-100 text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200">Share on Reddit</a>
                 </div>
             </div>
         </div>
 
         <!-- Ad Space - Replace with Ezoic/AdSense script -->
-        <div class="bg-gray-100 rounded-lg p-8 text-center mb-8"> <!-- Light grey ad card -->
+        <div class="bg-gray-100 rounded-lg p-8 text-center mb-8">
             <p class="text-base text-gray-700 mb-4">Sponsored by:</p>
             <div id="ads" class="h-24 bg-white rounded-md flex items-center justify-center text-gray-500 border border-gray-300">
                 Ad space (Ezoic/Google AdSense)
             </div>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6 text-center text-base text-gray-700">
+        <div class="grid md:grid-cols-3 gap-6 text-center text-base text-gray-700 mb-16">
             <div>Instant download</div>
             <div>100% free</div>
             <div>Professional quality</div>
         </div>
-    </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-4 text-center text-base text-gray-700">
+        <p>PdfBirch &copy; 2026. Not affiliated with any platforms.</p>
+    </footer>
 
     <!-- Hidden canvas for chart generation -->
     <canvas id="chartCanvas" style="display: none;" width="400" height="200"></canvas>
 
     <script>
-        const templates = {
-            "Climate Change": {
-                content: [
-                    { text: 'CLIMATE CHANGE REPORT', style: 'title' },
-                    { text: `Generated: ${new Date().toLocaleDateString()}`, style: 'subtitle' },
-                    { toc: { title: { text: 'TABLE OF CONTENTS', style: 'tocTitle' } } },
-                    { text: 'EXECUTIVE SUMMARY', style: 'header', pageBreak: 'before' },
-                    { text: 'Global temperatures rose 1.1°C since pre-industrial era. CO2 emissions hit 36.8 GtCO2e in 2023. Paris Agreement targets 1.5°C limit. Economic losses projected at $38 trillion by 2050.', style: 'body' },
-                    // Chart placeholder (replaced dynamically)
-                    { text: 'CHAPTER 1: GREENHOUSE EFFECT', style: 'header', pageBreak: 'before' },
-                    { text: 'Natural vs enhanced: CO2 (410ppm), Methane (1860ppb). Radiative forcing +2.72 W/m². [Detailed explanations, data tables, and references spanning multiple paragraphs to fill pages.]', style: 'body' },
-                    // Add 7 more chapters similarly, with tables e.g., { table: { body: [['Emitter', '%'], ['China', '30'], ...] } }
-                    // Pad with content to ensure ~10 pages (pdfmake auto-paginates)
-                    { text: 'REFERENCES', style: 'header', pageBreak: 'before' },
-                    { text: 'IPCC AR6, NOAA data, World Bank reports.', style: 'body' }
-                    // Force additional pages if needed via empty content with pageBreak
-                ],
-                styles: { title: { fontSize: 28, bold: true, alignment: 'center' }, subtitle: { fontSize: 12, alignment: 'center' }, header: { fontSize: 18, bold: true }, body: { fontSize: 12 }, tocTitle: { fontSize: 16, bold: true } }
-            },
-            // Add skeleton for other topics (expand in next subpart)
-            "Artificial Intelligence": { content: [/* Similar structure */], styles: {/* Same */} },
-            // ... (Truncated; fill in Subpart 2)
-        };
+        const HUGGING_FACE_TOKEN = 'hf_XXXXXXXXXXXXXXX'; // Replace with your free Hugging Face API token (signup at huggingface.co/settings/tokens)
 
         function surpriseMe() {
             const options = document.querySelectorAll('#topicSelect option');
             const randomIndex = Math.floor(Math.random() * options.length);
             topicSelect.value = options[randomIndex].value;
-            generatePDF(); // Auto-generate after randomize
+            generatePDF();
         }
 
         async function generatePDF() {
-            const rawTopic = document.getElementById('topicSelect').value;
-            const topic = rawTopic.replace(/[^a-zA-Z0-9 ]/g, ''); // Sanitize
+            let rawTopic = document.getElementById('customTopic').value.trim() || document.getElementById('topicSelect').value;
+            if (!rawTopic) {
+                alert('Please enter or select a topic.');
+                return;
+            }
+            const topic = rawTopic.replace(/[^a-zA-Z0-9 ]/g, '');
             document.getElementById('progress').classList.remove('hidden');
             document.getElementById('result').classList.add('hidden');
 
             try {
-                await new Promise(resolve => setTimeout(resolve, 2000)); // Delay for "AI" feel
+                // AI call for content
+                const aiResponse = await fetch('https://api-inference.huggingface.co/models/meta-llama/Llama-2-7b-chat-hf', {
+                    headers: { Authorization: `Bearer ${HUGGING_FACE_TOKEN}` },
+                    method: 'POST',
+                    body: JSON.stringify({
+                        inputs: `Generate a 10-page professional report on ${topic}. Include executive summary, 8 chapters with data, and references. Keep it detailed but concise.`
+                    })
+                });
+                const aiData = await aiResponse.json();
+                const generatedText = aiData[0].generated_text;
 
-                let template = templates[rawTopic];
-                if (!template) {
-                    alert('Topic not available yet.'); // Placeholder error
-                    return;
-                }
+                // Parse to PDF structure
+                const sections = generatedText.split('\n\n');
+                const content = [
+                    { text: `${topic.toUpperCase()} REPORT`, style: 'title' },
+                    { text: `Generated: ${new Date().toLocaleDateString()}`, style: 'subtitle' },
+                    { toc: { title: { text: 'TABLE OF CONTENTS', style: 'tocTitle' } } },
+                    { text: 'EXECUTIVE SUMMARY', style: 'header', pageBreak: 'before' },
+                    { text: sections[0] || 'Summary from AI...', style: 'body' },
+                    ...sections.slice(1, -1).map((sec, i) => ([
+                        { text: `CHAPTER ${i+1}: ${sec.split('\n')[0]}`, style: 'header', pageBreak: 'before' },
+                        { text: sec, style: 'body' }
+                    ]).flat()),
+                    { text: 'REFERENCES', style: 'header', pageBreak: 'before' },
+                    { text: sections[sections.length - 1] || 'AI-generated refs...', style: 'body' }
+                ];
 
-                // Generate chart
+                // Chart gen
                 const ctx = document.getElementById('chartCanvas').getContext('2d');
                 const chart = new Chart(ctx, {
                     type: 'bar',
-                    data: { labels: ['2020', '2023', '2030'], datasets: [{ label: topic, data: [10, 20, 50], backgroundColor: '#000000' }] }, // Black bars for minimalism
+                    data: { labels: ['Data Point 1', '2', '3'], datasets: [{ label: topic, data: [10, 20, 50], backgroundColor: '#000000' }] },
                     options: { responsive: false }
                 });
                 const chartImage = chartCanvas.toDataURL('image/png');
                 chart.destroy();
 
-                // Embed chart
-                template.content.splice(5, 0, { image: chartImage, width: 400 });
+                content.splice(5, 0, { image: chartImage, width: 400 });
 
-                // Build PDF
+                // PDF build
+                const template = { content, styles: { title: { fontSize: 28, bold: true, alignment: 'center' }, subtitle: { fontSize: 12, alignment: 'center' }, header: { fontSize: 18, bold: true }, body: { fontSize: 12 }, tocTitle: { fontSize: 16, bold: true } } };
                 const pdf = pdfmake.createPdf(template);
                 pdf.getBlob((blob) => {
                     const pdfUrl = URL.createObjectURL(blob);
@@ -150,13 +176,11 @@
                     document.getElementById('downloadBtn').href = pdfUrl;
                     document.getElementById('downloadBtn').download = `pdfbirch_${topic.replace(/ /g, '_')}_report.pdf`;
 
-                    // Shares
-                    const shareText = encodeURIComponent(`Check out this 10-page report on ${topic} from PdfBirch! ${window.location.href}`);
-                    document.getElementById('shareWhatsApp').href = `https://wa.me/?text=${shareText}`;
-                    document.getElementById('shareReddit').href = `https://www.reddit.com/submit?url=${window.location.href}&title=Free%20PDF%20on%20${encodeURIComponent(topic)}`;
-
                     document.getElementById('progress').classList.add('hidden');
                     document.getElementById('result').classList.remove('hidden');
+
+                    // Auto-download
+                    document.getElementById('downloadBtn').click();
                 });
             } catch (error) {
                 alert('Error: ' + error.message);
