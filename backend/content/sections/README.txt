@@ -1,1 +1,1 @@
-Section paragraph storage
+Paragraph storage
