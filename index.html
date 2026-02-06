@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entropy Engine | Enterprise</title>
+    <title>Pdfbirch | Entropy Engine</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         /* 1. CERAMIC WHITE FOUNDATION */
         :root {
             --bg: #f8fafc;
-            --text-main: #020617; /* Darker, richer black */
+            --text-main: #020617; 
             --text-muted: #64748b;
-            --card-bg: rgba(255, 255, 255, 0.85); /* Slightly more opaque */
+            --card-bg: rgba(255, 255, 255, 0.85); 
             --border: rgba(226, 232, 240, 0.8);
-            --primary: #0f172a;   /* Midnight Black for button (Luxury feel) */
-            --accent: #3b82f6;    /* Blue accent for loaders */
+            --primary: #0f172a;   
+            --accent: #3b82f6;    
         }
 
         body {
             margin: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif; /* THE NEW FONT */
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
             min-height: 100vh;
@@ -28,7 +28,7 @@
             align-items: center;
             -webkit-font-smoothing: antialiased;
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 32px 32px; /* Tighter dots */
+            background-size: 32px 32px;
         }
 
         /* 2. LAYOUT GRID */
@@ -42,7 +42,7 @@
             padding: 40px;
         }
 
-        /* 3. AD TOWERS (Technical Look) */
+        /* 3. AD TOWERS */
         .side-ad {
             width: 300px;
             height: 600px;
@@ -53,7 +53,7 @@
             align-items: center;
             justify-content: center;
             color: #94a3b8;
-            font-family: 'JetBrains Mono', monospace; /* Tech Font */
+            font-family: 'JetBrains Mono', monospace;
             font-size: 10px;
             font-weight: 500;
             letter-spacing: 1px;
@@ -68,12 +68,12 @@
             -webkit-backdrop-filter: blur(24px);
             border: 1px solid #fff;
             border-radius: 24px;
-            padding: 56px 48px; /* More padding = More premium */
+            padding: 56px 48px;
             width: 100%;
             max-width: 480px;
             text-align: center;
-            box-shadow:
-                0 20px 25px -5px rgba(0, 0, 0, 0.05),
+            box-shadow: 
+                0 20px 25px -5px rgba(0, 0, 0, 0.05), 
                 0 8px 10px -6px rgba(0, 0, 0, 0.01);
         }
 
@@ -87,22 +87,22 @@
             .side-ad.right{ order: 3; }
         }
 
-        /* TYPOGRAPHY UPGRADE */
-        h1 {
-            font-size: 32px; /* Bigger */
-            font-weight: 800; /* Bolder */
-            margin: 0 0 12px 0;
-            letter-spacing: -1.2px; /* Tighter tracking = Premium */
+        /* TYPOGRAPHY */
+        h1 { 
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0 0 12px 0; 
+            letter-spacing: -1.2px;
             color: #0f172a;
             line-height: 1.1;
         }
-
-        p {
-            color: var(--text-muted);
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 36px;
-            font-weight: 500; /* Slightly heavier than thin */
+        
+        p { 
+            color: var(--text-muted); 
+            font-size: 15px; 
+            line-height: 1.6; 
+            margin-bottom: 36px; 
+            font-weight: 500;
         }
 
         /* INNER ADS */
@@ -122,9 +122,9 @@
             letter-spacing: 1px;
         }
 
-        /* BUTTON (Midnight Luxury) */
+        /* BUTTON */
         .btn-primary {
-            background: #0f172a; /* Deep matte black */
+            background: #0f172a;
             color: white;
             border: none;
             padding: 20px;
@@ -145,13 +145,13 @@
 
         /* LOADER */
         .loader-container { margin-top: 32px; display: none; text-align: left; }
-        .status-header {
-            display: flex; justify-content: space-between;
-            font-family: 'JetBrains Mono', monospace; /* Tech font */
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            font-weight: 500;
+        .status-header { 
+            display: flex; justify-content: space-between; 
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px; 
+            color: var(--text-muted); 
+            margin-bottom: 12px; 
+            font-weight: 500; 
             text-transform: uppercase;
         }
         .progress-track { background: #e2e8f0; height: 4px; border-radius: 10px; overflow: hidden; }
@@ -164,8 +164,8 @@
             padding: 16px; margin: 8px 0;
             background: #fff; border: 1px solid #e2e8f0;
             border-radius: 12px;
-            color: var(--text-main); text-decoration: none;
-            font-size: 14px; font-weight: 600; /* Bolder text */
+            color: var(--text-main); text-decoration: none; 
+            font-size: 14px; font-weight: 600;
             transition: 0.2s;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
@@ -176,13 +176,13 @@
 <body>
 
     <div class="layout-grid">
-
+        
         <div class="side-ad left">
             <span>[ Ad Tower Left ]</span>
         </div>
 
         <div class="main-card">
-            <h1>Entropy Engine</h1>
+            <h1>Pdfbirch - Entropy Engine</h1>
             <p>Generate high-variance, cryptographically unique English datasets for pipeline validation.</p>
 
             <div class="ad-slot-inner" id="ad-top">[ Sponsored Placement ]</div>
@@ -205,13 +205,13 @@
 
             <div class="results-area" id="results">
                 <div style="text-align: left; margin-bottom: 16px; font-family:'JetBrains Mono'; font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing:1px;">Manifest Ready</div>
-
+                
                 <a href="/api/download" class="download-item"><span>Dataset_Batch_A83.pdf</span> <span>↓</span></a>
                 <a href="/api/download" class="download-item"><span>Dataset_Batch_X92.pdf</span> <span>↓</span></a>
                 <a href="/api/download" class="download-item"><span>Dataset_Batch_B11.pdf</span> <span>↓</span></a>
                 <a href="/api/download" class="download-item"><span>Dataset_Batch_G44.pdf</span> <span>↓</span></a>
                 <a href="/api/download" class="download-item"><span>Dataset_Batch_L09.pdf</span> <span>↓</span></a>
-
+                
                 <button class="btn-primary" onclick="location.reload()" style="margin-top:24px; background: white; color: #0f172a; border: 1px solid #e2e8f0; box-shadow:none;">Generate New Batch</button>
             </div>
         </div>
@@ -232,7 +232,7 @@
             const fill = document.getElementById('fill');
             const txt = document.getElementById('console-text');
             const pct = document.getElementById('percent-text');
-
+            
             const timer = setInterval(() => {
                 w++;
                 fill.style.width = w + '%';
@@ -249,7 +249,7 @@
                     clearInterval(timer);
                     showResults();
                 }
-            }, 600);
+            }, 600); 
         }
 
         function showResults() {
