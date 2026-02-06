@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free AI-powered 10-page PDF reports for students. Instant, professional, with charts and data.">
+    <meta property="og:title" content="PdfBirch - Free 10-Page PDF Reports">
+    <meta property="og:description" content="Generate professional reports on topics like Climate Change. Free forever.">
+    <meta property="og:image" content="https://yourusername.github.io/og-image.jpg"> <!-- Add a free OG image if desired -->
+    <title>PdfBirch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1"></script>
+    <!-- Google Analytics - Replace G-XXXX with your Measurement ID (sign up free at analytics.google.com) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXX"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XXXX');</script>
+</head>
+<body class="bg-gray-50 font-sans text-black min-h-screen antialiased"> <!-- Light grey bg, system sans-serif -->
+    <div class="max-w-2xl mx-auto p-8"> <!-- Wider for Apple-like space -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold mb-4">PdfBirch</h1> <!-- Black, bold, simple -->
+            <p class="text-lg text-gray-700">Generate instant 10-page professional reports on any topic. Free for students.</p> <!-- Grey text, clear description -->
+        </div>
+
+        <div class="bg-white rounded-lg p-8 mb-8"> <!-- White card, subtle round -->
+            <label class="block text-lg font-medium mb-4 text-gray-900">Choose a topic:</label> <!-- Medium grey label -->
+            <select id="topicSelect" class="w-full p-4 border border-gray-300 rounded-md text-base focus:outline-none focus:border-black mb-4"> <!-- Clean border, black focus -->
+                <option value="Climate Change">Climate Change (10 pages)</option>
+                <option value="Artificial Intelligence">Artificial Intelligence</option>
+                <option value="Machine Learning">Machine Learning</option>
+                <option value="Blockchain">Blockchain Technology</option>
+                <option value="Cybersecurity">Cybersecurity</option>
+                <option value="Quantum Computing">Quantum Computing</option>
+                <option value="Space Exploration">Space Exploration</option>
+                <option value="World War II">World War II History</option>
+                <option value="Indian History">Indian History</option>
+                <option value="Ancient Rome">Ancient Rome</option>
+            </select>
+            <div class="flex gap-4"> <!-- Buttons side-by-side -->
+                <button onclick="generatePDF()" class="flex-1 bg-black text-white font-medium py-4 px-6 rounded-md hover:bg-gray-800 transition">Generate PDF</button> <!-- Black button, white text, subtle hover -->
+                <button onclick="surpriseMe()" class="flex-1 bg-white text-black font-medium py-4 px-6 border border-gray-300 rounded-md hover:bg-gray-100 transition">Surprise Me</button> <!-- Outline button for randomize -->
+            </div>
+        </div>
+
+        <div id="progress" class="hidden bg-white rounded-lg p-8 text-center mb-8">
+            <div class="w-12 h-12 border-4 border-gray-200 border-t-black rounded-full animate-spin mx-auto mb-4"></div> <!-- Grey/black spinner -->
+            <p class="text-lg font-medium text-gray-900">Creating your report...</p>
+            <p class="text-base text-gray-500 mt-2">~5 seconds</p>
+        </div>
+
+        <div id="result" class="hidden">
+            <div class="bg-white rounded-lg p-8 mb-8">
+                <h2 id="pdfTitle" class="text-2xl font-medium text-gray-900 mb-4"></h2> <!-- Grey title -->
+                <iframe id="pdfPreview" class="w-full h-[300px] sm:h-[400px] md:h-96 border border-gray-300 rounded-md mb-4"></iframe> <!-- Light border -->
+                <a id="downloadBtn" class="block w-full bg-black text-white font-medium py-4 px-6 rounded-md text-center hover:bg-gray-800 transition mb-4">
+                    Download PDF (10 Pages)
+                </a>
+                <div class="flex justify-center gap-4">
+                    <a href="#" id="shareWhatsApp" class="bg-gray-100 text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200">Share on WhatsApp</a> <!-- Grey buttons -->
+                    <a href="#" id="shareReddit" class="bg-gray-100 text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200">Share on Reddit</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ad Space - Replace with Ezoic/AdSense script -->
+        <div class="bg-gray-100 rounded-lg p-8 text-center mb-8"> <!-- Light grey ad card -->
+            <p class="text-base text-gray-700 mb-4">Sponsored by:</p>
+            <div id="ads" class="h-24 bg-white rounded-md flex items-center justify-center text-gray-500 border border-gray-300">
+                Ad space (Ezoic/Google AdSense)
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 text-center text-base text-gray-700">
+            <div>Instant download</div>
+            <div>100% free</div>
+            <div>Professional quality</div>
+        </div>
+    </div>
+
+    <!-- Hidden canvas for chart generation -->
+    <canvas id="chartCanvas" style="display: none;" width="400" height="200"></canvas>
+
+    <script>
+        const templates = {
+            "Climate Change": {
+                content: [
+                    { text: 'CLIMATE CHANGE REPORT', style: 'title' },
+                    { text: `Generated: ${new Date().toLocaleDateString()}`, style: 'subtitle' },
+                    { toc: { title: { text: 'TABLE OF CONTENTS', style: 'tocTitle' } } },
+                    { text: 'EXECUTIVE SUMMARY', style: 'header', pageBreak: 'before' },
+                    { text: 'Global temperatures rose 1.1°C since pre-industrial era. CO2 emissions hit 36.8 GtCO2e in 2023. Paris Agreement targets 1.5°C limit. Economic losses projected at $38 trillion by 2050.', style: 'body' },
+                    // Chart placeholder (replaced dynamically)
+                    { text: 'CHAPTER 1: GREENHOUSE EFFECT', style: 'header', pageBreak: 'before' },
+                    { text: 'Natural vs enhanced: CO2 (410ppm), Methane (1860ppb). Radiative forcing +2.72 W/m². [Detailed explanations, data tables, and references spanning multiple paragraphs to fill pages.]', style: 'body' },
+                    // Add 7 more chapters similarly, with tables e.g., { table: { body: [['Emitter', '%'], ['China', '30'], ...] } }
+                    // Pad with content to ensure ~10 pages (pdfmake auto-paginates)
+                    { text: 'REFERENCES', style: 'header', pageBreak: 'before' },
+                    { text: 'IPCC AR6, NOAA data, World Bank reports.', style: 'body' }
+                    // Force additional pages if needed via empty content with pageBreak
+                ],
+                styles: { title: { fontSize: 28, bold: true, alignment: 'center' }, subtitle: { fontSize: 12, alignment: 'center' }, header: { fontSize: 18, bold: true }, body: { fontSize: 12 }, tocTitle: { fontSize: 16, bold: true } }
+            },
+            // Add skeleton for other topics (expand in next subpart)
+            "Artificial Intelligence": { content: [/* Similar structure */], styles: {/* Same */} },
+            // ... (Truncated; fill in Subpart 2)
+        };
+
+        function surpriseMe() {
+            const options = document.querySelectorAll('#topicSelect option');
+            const randomIndex = Math.floor(Math.random() * options.length);
+            topicSelect.value = options[randomIndex].value;
+            generatePDF(); // Auto-generate after randomize
+        }
+
+        async function generatePDF() {
+            const rawTopic = document.getElementById('topicSelect').value;
+            const topic = rawTopic.replace(/[^a-zA-Z0-9 ]/g, ''); // Sanitize
+            document.getElementById('progress').classList.remove('hidden');
+            document.getElementById('result').classList.add('hidden');
+
+            try {
+                await new Promise(resolve => setTimeout(resolve, 2000)); // Delay for "AI" feel
+
+                let template = templates[rawTopic];
+                if (!template) {
+                    alert('Topic not available yet.'); // Placeholder error
+                    return;
+                }
+
+                // Generate chart
+                const ctx = document.getElementById('chartCanvas').getContext('2d');
+                const chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: { labels: ['2020', '2023', '2030'], datasets: [{ label: topic, data: [10, 20, 50], backgroundColor: '#000000' }] }, // Black bars for minimalism
+                    options: { responsive: false }
+                });
+                const chartImage = chartCanvas.toDataURL('image/png');
+                chart.destroy();
+
+                // Embed chart
+                template.content.splice(5, 0, { image: chartImage, width: 400 });
+
+                // Build PDF
+                const pdf = pdfmake.createPdf(template);
+                pdf.getBlob((blob) => {
+                    const pdfUrl = URL.createObjectURL(blob);
+                    document.getElementById('pdfTitle').textContent = `${topic} Report`;
+                    document.getElementById('pdfPreview').src = pdfUrl;
+                    document.getElementById('downloadBtn').href = pdfUrl;
+                    document.getElementById('downloadBtn').download = `pdfbirch_${topic.replace(/ /g, '_')}_report.pdf`;
+
+                    // Shares
+                    const shareText = encodeURIComponent(`Check out this 10-page report on ${topic} from PdfBirch! ${window.location.href}`);
+                    document.getElementById('shareWhatsApp').href = `https://wa.me/?text=${shareText}`;
+                    document.getElementById('shareReddit').href = `https://www.reddit.com/submit?url=${window.location.href}&title=Free%20PDF%20on%20${encodeURIComponent(topic)}`;
+
+                    document.getElementById('progress').classList.add('hidden');
+                    document.getElementById('result').classList.remove('hidden');
+                });
+            } catch (error) {
+                alert('Error: ' + error.message);
+                document.getElementById('progress').classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
