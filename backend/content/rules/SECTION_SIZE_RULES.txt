@@ -1,0 +1,6 @@
+Target words per section: 500–800
+Minimum words per section: 400
+Maximum words per section: 900
+
+Each section must be readable independently.
+Each section must support optional subsections, lists, or charts.
